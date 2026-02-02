@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pandas
+numpy
+scikit-learn
+imbalanced-learn
+mysql-connector-python
+sqlalchemy
+joblib
+pydantic
