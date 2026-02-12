@@ -47,7 +47,7 @@ function App() {
     };
 
     try {
-      const response = await fetch("http://127.0.0.1:8001/predict/heart", {
+      const response = await fetch("http://127.0.0.1:8000/predict/heart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -213,7 +213,7 @@ function App() {
         {result && (
           <div className={`result-box ${result.prediction === "Heart Disease" ? "danger" : "safe"}`}>
             <h2>Result: {result.prediction}</h2>
-            <p>Risk Probability: <strong>{result.probability}</strong></p>
+            <p>Result Probability: <strong>{result.probability}</strong></p>
             <div className="badge">{result.risk_level} Risk</div>
           </div>
         )}
