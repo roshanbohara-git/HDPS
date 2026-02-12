@@ -13,6 +13,3 @@ class HeartDiseaseInput(BaseModel):
     ExerciseAngina: str
     Oldpeak: float
     ST_Slope: str
-    
-    # Optional: If you want to send the actual result from frontend (usually not needed for prediction)
-    # But useful if you are storing patient history manually
