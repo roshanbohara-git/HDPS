@@ -31,7 +31,7 @@ DATASET_PATH = os.path.join(BASE_DIR, "saved_model", "heart_disease_datasets.csv
 # --- LIFESPAN MANAGER ---
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    print("🔄 Starting up: Loading model and preparing preprocessor...")
+    print("Starting up: Loading model and preparing preprocessor...")
     
     try:
         # A. Load the Trained Model
@@ -42,19 +42,19 @@ async def lifespan(app: FastAPI):
                 artifacts["model"] = loaded_object.get("model")
                 if "preprocessor" in loaded_object:
                     artifacts["preprocessor"] = loaded_object["preprocessor"]
-                    print("✅ Loaded both model and preprocessor from pickle.")
+                    print("Loaded both model and preprocessor from pickle.")
                 else:
-                    print("✅ Loaded model from pickle (dictionary format).")
+                    print("Loaded model from pickle (dictionary format).")
             else:
                 artifacts["model"] = loaded_object
-                print(f"✅ Model loaded from: {MODEL_PATH}")
+                print(f"Model loaded from: {MODEL_PATH}")
         else:
-            print(f"❌ Error: Model file not found at {MODEL_PATH}")
+            print(f"Error: Model file not found at {MODEL_PATH}")
 
         # B. Prepare the Preprocessor
         if artifacts["preprocessor"] is None:
             if os.path.exists(DATASET_PATH):
-                print("⚙️  Fitting preprocessor on dataset...")
+                print("Fitting preprocessor on dataset...")
                 df = pd.read_csv(DATASET_PATH)
                 
                 categorical_cols = ['Sex', 'ChestPainType', 'RestingECG', 'ExerciseAngina', 'ST_Slope']
@@ -70,18 +70,18 @@ async def lifespan(app: FastAPI):
                 X = df.drop(columns=['HeartDisease'])
                 preprocessor.fit(X)
                 artifacts["preprocessor"] = preprocessor
-                print("✅ Preprocessor ready.")
+                print("Preprocessor ready.")
             else:
                 print(f"❌ Error: Dataset not found at {DATASET_PATH}")
         else:
-            print("✅ Using preprocessor from pickle.")
+            print("Using preprocessor from pickle.")
 
     except Exception as e:
-        print(f"❌ Critical Error during startup: {e}")
+        print(f"Critical Error during startup: {e}")
 
     yield 
     
-    print("🛑 Shutting down...")
+    print("Shutting down...")
     artifacts.clear()
 
 # 2. Initialize App
